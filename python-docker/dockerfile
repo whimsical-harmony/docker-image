@@ -1,0 +1,19 @@
+# syntax=docker/dockerfile:1
+
+# use official python image as the base 
+FROM python:3.8-slim-buster
+
+# use this path as the default location for subsequent commands
+WORKDIR /app
+
+# need requirements.txt -> COPY <file(s) you'd like to copy> <where you want that file(s) to be copied>
+COPY requirements.txt requirements.txt
+
+# needed modules are installed into the image
+RUN pip3 install -r requirements.txt
+
+# add source code into the image
+COPY . .
+
+CMD [ "python3", "-m", "flask", "run", "--host=0.0.0.0"]
+
